@@ -18,7 +18,7 @@
           const li = document.createElement("li");
           const a = document.createElement("a");
           a.textContent = movie["#TITLE"];
-          //   a.href = movie["Url"];
+          // a.href = movie["Url"];
           a.dataset.review = movie["#IMDB_ID"];
           li.appendChild(a);
           ul.appendChild(li);

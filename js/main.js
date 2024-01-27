@@ -6,7 +6,7 @@
   // const baseUrl = `https://swapi.dev/api/films/2/`;
 
   function getMovies() {
-    fetch(`${baseUrl}?q=captain america`)
+    fetch(`${baseUrl}?q=The Dark Knight`)
       .then((response) => response.json())
       .then(function (response) {
         // console.log(response.description);

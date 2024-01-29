@@ -24,7 +24,7 @@
       .then(function () {
         const links = document.querySelectorAll("#movie-box li a");
         links.forEach((link) => {
-          link.addEventListener("click", fetchCharacterDetails);
+          link.addEventListener("click", fetchCharacterMovieDetails);
         });
       })
       .catch((error) => {
@@ -32,7 +32,7 @@
       });
   }
 
-  function fetchCharacterDetails(e) {
+  function fetchCharacterMovieDetails(e) {
     e.preventDefault();
     const characterUrl = e.currentTarget.dataset.characterUrl;
     fetch(characterUrl)
@@ -43,9 +43,23 @@
         const template = document.importNode(reviewTemplate.content, true);
         const reviewHeading = template.querySelector(".review-heading");
         const reviewDescription = template.querySelector(".review-description");
-        reviewHeading.textContent = characterData.name;
-        reviewDescription.textContent = `Height: ${characterData.height} cm\nMass: ${characterData.mass} kg\nHair Color: ${characterData.hair_color}`;
-        reviewCon.appendChild(template);
+
+        // Get the movies the character was in
+        const filmUrls = characterData.films;
+        const filmPromises = filmUrls.map((filmUrl) =>
+          fetch(filmUrl)
+            .then((response) => response.json())
+            .then(function (filmData) {
+              // Append movie title and opening crawl to the reviewDescription
+              reviewDescription.textContent += `\n\nMovie: ${filmData.title}\nOpening Crawl: ${filmData.opening_crawl}`;
+            })
+        );
+
+        // Wait for all movie details to be fetched before displaying
+        Promise.all(filmPromises).then(() => {
+          reviewHeading.textContent = characterData.name;
+          reviewCon.appendChild(template);
+        });
       })
       .catch((error) => {
         console.log(error);

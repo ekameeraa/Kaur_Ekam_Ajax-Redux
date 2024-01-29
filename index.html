@@ -1,35 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajax Redux</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-    <link href="css/grid.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
-    <script defer src="js/main.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star Wars Character Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+    rel="stylesheet">
+  <link href="css/grid.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <script defer src="js/main.js"></script>
 </head>
+
 <body>
-    <div class="grid-con">
-        <section class="col-span-full m-col-span-6" id="movie-box">
-          <h2>All Parts of "The Dark Knight"</h2>
+  <div class="grid-con">
+    <section class="col-span-full m-col-span-6" id="movie-box">
+      <h2>Star Wars Characters</h2>
+    </section>
+    <section class="col-span-full m-col-span-6" id="review-box">
+      <h2>Movie Details</h2>
+      <div id="review-con">
+        <!-- template will be inserted here-->
+      </div>
+      <template id="review-template">
+        <section>
+          <h3 class="review-heading"></h3>
+          <p class="review-author"></p>
+          <p class="review-description"></p>
         </section>
-        <section class="col-span-full m-col-span-6" id="review-box">
-          <h2>Overview for the Movies</h2>
-          <div id="review-con">
-            <!-- template will be inserted here-->
-          </div>
-          <template id="review-template">
-            <section>
-              <h3 class="review-heading"></h3>
-              <p class="review-author"></p>
-              <p class="review-description"></p>
-            </section>
-          </template>
-        </section>
-  
-      </div>  
+      </template>
+    </section>
+
+  </div>
 </body>
+
 </html>

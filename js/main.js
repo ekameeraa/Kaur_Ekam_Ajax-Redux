@@ -1,56 +1,50 @@
 (() => {
-  const movieBox = document.querySelector("#movie-box");
+  const characterBox = document.querySelector("#movie-box");
   const reviewTemplate = document.querySelector("#review-template");
   const reviewCon = document.querySelector("#review-con");
-  const baseUrl = `https://search.imdbot.workers.dev/`;
-  // const baseUrl = `https://swapi.dev/api/films/2/`;
+  const baseUrl = 'https://swapi.dev/api/';
 
-  function getMovies() {
-    fetch(`${baseUrl}?q=The Dark Knight`)
+  function fetchStarWarsCharacters() {
+    fetch(`${baseUrl}people/?format=json`)
       .then((response) => response.json())
-      .then(function (response) {
-        // console.log(response.description);
-        const movies = response.description;
+      .then(function (data) {
+        const characters = data.results;
         const ul = document.createElement("ul");
-        movies.forEach((movie) => {
-          //   console.log(movie["#TITLE"]);
-          //   console.log(movie["#IMDB_ID"]);
+        characters.forEach((character) => {
           const li = document.createElement("li");
           const a = document.createElement("a");
-          a.textContent = movie["#TITLE"];
-          // a.href = movie["Url"];
-          a.dataset.review = movie["#IMDB_ID"];
+          a.textContent = character.name;
+          a.href = "#";
+          a.dataset.characterUrl = character.url; // Store character URL
           li.appendChild(a);
           ul.appendChild(li);
         });
-        movieBox.appendChild(ul);
+        characterBox.appendChild(ul);
       })
       .then(function () {
         const links = document.querySelectorAll("#movie-box li a");
         links.forEach((link) => {
-          link.addEventListener("click", getReview);
+          link.addEventListener("click", fetchCharacterDetails);
         });
       })
       .catch((error) => {
         console.log(error);
-        // ideally we would write to the DOM andd ket user know, something is wrong
       });
   }
 
-  function getReview(e) {
-    // console.log("getReview Called");
-    // console.log(e.currentTarget.dataset.review);
-    // console.log(this.dataset.review);
-    const reviewID = e.currentTarget.dataset.review;
-    //  https://search.imdbot.workers.dev/?tt=tt0111257
-    fetch(`${baseUrl}?tt=${reviewID}`)
+  function fetchCharacterDetails(e) {
+    e.preventDefault();
+    const characterUrl = e.currentTarget.dataset.characterUrl;
+    fetch(characterUrl)
       .then((response) => response.json())
-      .then(function (response) {
-        reviewCon.innerHTML = "";
-        console.log(response.short.review.reviewBody);
+      .then(function (characterData) {
+        // Display character details in the #review-con section
+        reviewCon.innerHTML = '';
         const template = document.importNode(reviewTemplate.content, true);
-        const reviewBody = template.querySelector(".review-description");
-        reviewBody.innerHTML = response.short.review.reviewBody;
+        const reviewHeading = template.querySelector(".review-heading");
+        const reviewDescription = template.querySelector(".review-description");
+        reviewHeading.textContent = characterData.name;
+        reviewDescription.textContent = `Height: ${characterData.height} cm\nMass: ${characterData.mass} kg\nHair Color: ${characterData.hair_color}`;
         reviewCon.appendChild(template);
       })
       .catch((error) => {
@@ -58,5 +52,5 @@
       });
   }
 
-  getMovies();
+  fetchStarWarsCharacters();
 })();

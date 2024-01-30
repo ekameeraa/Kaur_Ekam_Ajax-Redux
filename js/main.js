@@ -64,7 +64,6 @@
           link.textContent = character.name;
           link.href = "#";
 
-          // Randomly select a film URL from the character's film list
           const filmIndex = Math.floor(Math.random() * character.films.length);
           link.dataset.filmUrl = character.films[filmIndex];
 
@@ -85,13 +84,13 @@
 
 
   function displayMovieDetails(filmUrl) {
-    reviewCon.innerHTML = '';  // Clear previous content
+    reviewCon.innerHTML = '';  
     displaySpinner(reviewCon);
 
     fetch(filmUrl)
       .then(response => response.json())
       .then(filmData => {
-        const movieImage = `images/image${filmData.episode_id}.jpg`; // Image name matches the episode_id
+        const movieImage = `images/image${filmData.episode_id}.jpg`; 
         reviewCon.innerHTML = `
           <h3>${filmData.title}</h3>
           <div>

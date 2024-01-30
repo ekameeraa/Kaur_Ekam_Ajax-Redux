@@ -1,8 +1,10 @@
 # Kaur_Ekam_Chaudhari_Vasishth_Ajax-Redux
+
+![image](https://github.com/ekameeraa/Kaur_Ekam_Chaudhari_Vasishth_Ajax-Redux/assets/121986393/bde7ab6d-a8bb-4563-aefd-7df28dfdb931)
+
+
 AJAX REDUX - STAR WARS/MOVIE GUIDE
 
-
-![image](https://github.com/ekameeraa/Kaur_Ekam_Chaudhari_Vasishth_Ajax-Redux/assets/121986393/cbdf80d7-6ef2-4ad5-93d8-9a94e136802f)
 
 # Overview
 This project is used to show the skills that how to populate the Star Wars API(SWAPI0) to create a responsive movie/characters guide. Furthermore, the guide will display the information about characters and upon clicking a character, an AJAX call will retrieve and display details about the movie for which the character will be reveal.

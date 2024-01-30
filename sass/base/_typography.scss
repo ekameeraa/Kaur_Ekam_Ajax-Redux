@@ -4,11 +4,12 @@ body {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   font-size: 20px;
-  color: $accent-color;
+  color: v.$accent-color;
 }
 
 h2 {
   margin-top: 20px;
+  margin-left: 20px; 
   font-weight: 600;
   font-size: 30px;
   margin-bottom: 20px;
@@ -22,7 +23,8 @@ h3 {
 }
 
 p {
+  margin-bottom: 20px; 
   font-weight: 300;
   font-size: 16px;
-  color: $secondary-color;
+  color: v.$secondary-color;
 }

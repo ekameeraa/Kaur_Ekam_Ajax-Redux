@@ -1,7 +1,7 @@
 (() => {
   const movieBox = document.querySelector("#movie-box");
   const reviewCon = document.querySelector("#review-con");
-  const spinner = `
+ const spinner = `
     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none; display: block; shape-rendering: auto;" width="281px" height="281px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
       <g transform="translate(50 50) scale(0.73) translate(-50 -50)">
         <g>
@@ -71,6 +71,7 @@
             e.preventDefault();
             displayMovieDetails(link.dataset.filmUrl);
           });
+
           listItem.appendChild(link);
           characterList.appendChild(listItem);
         });
@@ -82,15 +83,14 @@
       });
   }
 
-
   function displayMovieDetails(filmUrl) {
-    reviewCon.innerHTML = '';  
+    reviewCon.innerHTML = '';  // Clear previous content
     displaySpinner(reviewCon);
 
     fetch(filmUrl)
       .then(response => response.json())
       .then(filmData => {
-        const movieImage = `images/image${filmData.episode_id}.jpg`; 
+        const movieImage = `images/image${filmData.episode_id}.jpg`;
         reviewCon.innerHTML = `
           <h3>${filmData.title}</h3>
           <div>

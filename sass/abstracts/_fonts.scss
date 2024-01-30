@@ -1,2 +1,17 @@
 @use "fonts";
-@include m.fontFace(Lora-Medium, "..fonts/Lora-bold.ttf");
+
+/* Include the font-face for Lora-Medium */
+@include fonts.fontFace(Lora-Medium, "../fonts/Lora-bold.ttf");
+
+/* Direct CSS styling */
+p,
+h1,
+h2,
+h3 {
+  font-family: "Lora", Arial, sans-serif;
+}
+
+h2 {
+  color: #ff0000;
+  font-weight: bold;
+}

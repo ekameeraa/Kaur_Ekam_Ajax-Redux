@@ -1,3 +1,37 @@
+p,
+h1,
+h2,
+h3 {
+  font-family: "lora", Arial, sans-serif;
+}
+
+h2 {
+  color: #ff0000;
+  font-weight: bold;
+}
+
+p {
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-top: 20px;
+  margin-left: 20px;
+  font-weight: 600;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+p {
+  font-weight: 300;
+  font-size: 16px;
+}
+
 #logo {
   width: 500px;
   margin-top: 10px;
@@ -22,36 +56,6 @@ body {
   margin-right: 10px;
 }
 
-h2 {
-  color: #ff0000;
-  font-weight: bold;
-}
-
-p,
-h1,
-h2,
-h3 {
-  font-family: "lora", Arial, sans-serif;
-}
-
-p {
-  margin-bottom: 20px;
-}
-
-h2 {
-  margin-top: 20px;
-  margin-left: 20px;
-  font-weight: 600;
-  font-size: 30px;
-  margin-bottom: 20px;
-}
-
-h3 {
-  font-weight: 600;
-  font-size: 18px;
-}
-
-p {
-  font-weight: 300;
-  font-size: 16px;
+a {
+  cursor: pointer;
 }

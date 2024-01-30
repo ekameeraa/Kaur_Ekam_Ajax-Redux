@@ -1,9 +1,6 @@
 (() => {
   const movieBox = document.querySelector("#movie-box");
-  const reviewTemplate = document.querySelector("#review-template");
   const reviewCon = document.querySelector("#review-con");
-  const baseUrl = 'https://swapi.dev/api/';
-  const imagesFolder = 'images/';
   const spinner = `
     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none; display: block; shape-rendering: auto;" width="281px" height="281px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
       <g transform="translate(50 50) scale(0.73) translate(-50 -50)">
@@ -40,20 +37,6 @@
     </svg>
   `;
 
-  function getRandomFilmUrl(films) {
-    if (films && films.length > 0) {
-      const randomIndex = Math.floor(Math.random() * films.length);
-      return films[randomIndex];
-    } else {
-      return `${baseUrl}films/1/?format=json`;
-    }
-  }
-
-  function downloadAndStoreImage(imageUrl, imageName) {
-    // Implement code to download and store the image
-    // Placeholder - you need to implement this part based on your requirements
-  }
-
   function displaySpinner(element) {
     const spinnerDiv = document.createElement('div');
     spinnerDiv.classList.add('custom-spinner');
@@ -68,101 +51,60 @@
     }
   }
 
-  function getStarWarsCharacters() {
-    const charactersHeading = document.querySelector("#movie-box h2");
-    displaySpinner(charactersHeading);
-
-    fetch(`${baseUrl}people/?format=json`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
+  function displayCharacters() {
+    displaySpinner(movieBox);
+    fetch('https://swapi.dev/api/people/?format=json')
+      .then(response => response.json())
       .then(data => {
-        const characters = data.results;
-        const ul = document.createElement("ul");
+        removeSpinner(movieBox);
+        const characterList = document.createElement("ul");
+        data.results.forEach(character => {
+          const listItem = document.createElement("li");
+          const link = document.createElement("a");
+          link.textContent = character.name;
+          link.href = "#";
 
-        characters.forEach(character => {
-          const li = document.createElement("li");
-          const a = document.createElement("a");
-          a.textContent = character.name;
-          a.href = "#";
-          a.dataset.characterUrl = character.url;
-          li.appendChild(a);
-          ul.appendChild(li);
-        });
+          // Randomly select a film URL from the character's film list
+          const filmIndex = Math.floor(Math.random() * character.films.length);
+          link.dataset.filmUrl = character.films[filmIndex];
 
-        removeSpinner(charactersHeading);
-        charactersHeading.insertAdjacentElement("afterend", ul);
-      })
-      .then(() => {
-        movieBox.addEventListener("click", function (e) {
-          if (e.target.tagName === 'A') {
+          link.addEventListener("click", (e) => {
             e.preventDefault();
-            getCharacterFirstMovieDetails(e.target.dataset.characterUrl);
-          }
+            displayMovieDetails(link.dataset.filmUrl);
+          });
+          listItem.appendChild(link);
+          characterList.appendChild(listItem);
         });
+        movieBox.appendChild(characterList);
       })
       .catch(error => {
-        console.error(error);
-        removeSpinner(charactersHeading);
+        console.error('Error fetching characters:', error);
+        removeSpinner(movieBox);
       });
   }
 
-  function getCharacterFirstMovieDetails(characterUrl) {
-    let characterData;
-    reviewCon.innerHTML = spinner;
 
-    fetch(characterUrl)
-      .then(response => {
-        reviewCon.innerHTML = spinner;
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        characterData = data;
-        const randomFilmUrl = getRandomFilmUrl(characterData.films);
-        return fetch(randomFilmUrl);
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
+  function displayMovieDetails(filmUrl) {
+    reviewCon.innerHTML = '';  // Clear previous content
+    displaySpinner(reviewCon);
+
+    fetch(filmUrl)
+      .then(response => response.json())
       .then(filmData => {
-        const template = document.importNode(reviewTemplate.content, true);
-        const reviewHeading = template.querySelector(".review-heading");
-        const reviewDescription = template.querySelector(".review-description");
-        const moviePosterContainer = template.querySelector(".movie-poster-container");
-
-        reviewHeading.textContent = characterData.name;
-        reviewDescription.innerHTML = `
-          <h4>${filmData.title}</h4>
-          <p>${filmData.opening_crawl}</p>`;
-
-        const imageName = `image${filmData.episode_id}.jpg`;
-        downloadAndStoreImage(`${imagesFolder}${imageName}`, imageName);
-
-        // Check if moviePosterContainer is not null before setting its content
-        if (moviePosterContainer) {
-          const img = document.createElement("img");
-          img.src = `${imagesFolder}${imageName}`;
-          img.alt = "Movie Poster";
-          moviePosterContainer.appendChild(img);
-        }
-
-        reviewCon.innerHTML = '';
-        reviewCon.appendChild(template);
+        const movieImage = `images/image${filmData.episode_id}.jpg`; // Image name matches the episode_id
+        reviewCon.innerHTML = `
+          <h3>${filmData.title}</h3>
+          <div>
+            <p>${filmData.opening_crawl}</p>
+            <img src="${movieImage}" alt="Movie Poster: ${filmData.title}">
+          </div>`;
+        removeSpinner(reviewCon);
       })
       .catch(error => {
-        console.error(error);
-        reviewCon.innerHTML = '';
+        console.error('Error fetching movie details:', error);
+        removeSpinner(reviewCon);
       });
   }
 
-  getStarWarsCharacters();
+  displayCharacters();
 })();

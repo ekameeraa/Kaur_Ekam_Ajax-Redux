@@ -13,7 +13,7 @@ This project is used to show the skills that how to populate the Star Wars API(S
 1. images: Movie posters or imagery
 2. js: to add dynamic effects
 3. css: stylesheet for layout
-4. sass: 
+4. sass
 
 # Contributing
 
@@ -29,4 +29,4 @@ TODO: MIT
 
 # Acknowledgments
 
-Credits goes to EKAMPREET KAUR and Vasishth Sureshbhai Chaudhari!
+Credits goes to EKAMPREET KAUR and VASISHTH SURESHBHAI CHAUDHARI!

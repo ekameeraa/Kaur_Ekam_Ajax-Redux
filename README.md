@@ -1,5 +1,7 @@
 # Kaur_Ekam_Chaudhari_Vasishth_Ajax-Redux
 AJAX REDUX - STAR WARS/MOVIE GUIDE
+
+
 ![image](https://github.com/ekameeraa/Kaur_Ekam_Chaudhari_Vasishth_Ajax-Redux/assets/121986393/cbdf80d7-6ef2-4ad5-93d8-9a94e136802f)
 
 # Overview
